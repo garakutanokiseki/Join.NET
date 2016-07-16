@@ -945,7 +945,7 @@ namespace JoinNET
                                                 {
                                                     NavigateTo(m_PageWebBrowser, TrasitionType.Trasition_SlideRight, true);
 
-                                                    string szUrl = "http://127.0.0.1:" + m_TuunelClient.Port.ToString() + "/top.html";
+                                                    string szUrl = "http://127.0.0.1:" + m_TuunelClient.Port.ToString() + "/";
                                                     m_PageWebBrowser.Browser.Navigate(szUrl);
                                                 }
                                                 break;
