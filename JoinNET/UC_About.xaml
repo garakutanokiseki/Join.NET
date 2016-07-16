@@ -47,6 +47,22 @@
                         </Hyperlink>
                     </Label>
                 </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock Text="DynamicJson" Foreground="{DynamicResource TextBrush}" />
+                    <Label>
+                        <Hyperlink NavigateUri="https://dynamicjson.codeplex.com/" Hyperlink.RequestNavigate="hyperlink_RequestNavigate">
+                            <TextBlock Foreground="#FF1EC315" Text="https://dynamicjson.codeplex.com/" />
+                        </Hyperlink>
+                    </Label>
+                </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock Text="WPF Themes" Foreground="{DynamicResource TextBrush}" />
+                    <Label>
+                        <Hyperlink NavigateUri="https://wpfthemes.codeplex.com/" Hyperlink.RequestNavigate="hyperlink_RequestNavigate">
+                            <TextBlock Foreground="#FF1EC315" Text="https://wpfthemes.codeplex.com/" />
+                        </Hyperlink>
+                    </Label>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

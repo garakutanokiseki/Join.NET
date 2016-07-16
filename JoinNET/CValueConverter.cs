@@ -15,28 +15,8 @@ namespace JoinNET
     /// <summary>
     /// ノードの状態によって背景色を作成する
     /// </summary>
-    [ValueConversion(typeof(DataClient.NodeStatus), typeof(SolidColorBrush))]
-    public class NodeStatusColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            DataClient.NodeStatus node_status = (DataClient.NodeStatus)value;
-            if (node_status == DataClient.NodeStatus.Connected)
-                return new SolidColorBrush(Color.FromArgb(0xff, 0xff, 0xff, 0xff));
-            return new SolidColorBrush(Color.FromArgb(0xff, 0x88, 0x88, 0x88));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    /// <summary>
-    /// ノードの状態によって背景色を作成する
-    /// </summary>
     [ValueConversion(typeof(DataAccount.Status), typeof(string))]
-    public class SIPAccountStatusColorConverter : IValueConverter
+    public class AccountStatusColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -63,53 +43,6 @@ namespace JoinNET
     }
 
     /// <summary>
-    /// ImageSourceに変換する
-    /// </summary>
-    [ValueConversion(typeof(string), typeof(BitmapImage))]
-    public class StringToBitmapConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string file = (string)value;
-            if (File.Exists(file) == true)
-            {
-                return CBmpUtil.LoadImage(file, 360);
-
-            }
-            return new BitmapImage(new Uri("Images/downloadingimage.png", UriKind.Relative));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    /// <summary>
-    /// 指定ファイルパスの有無をVisibilityに変換する
-    /// </summary>
-    [ValueConversion(typeof(string), typeof(Visibility))]
-    public class FilePathToVisibleConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string file = (string)value;
-            if (File.Exists(file) == true)
-            {
-                return Visibility.Collapsed;
-
-            }
-            return Visibility.Visible;
-            
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    /// <summary>
     /// bool値の有無をVisibilityに変換する(trur:Visible, false:Collapsed)
     /// </summary>
     [ValueConversion(typeof(bool), typeof(Visibility))]
@@ -121,90 +54,6 @@ namespace JoinNET
             if (bIsVisible == true)
                 return Visibility.Visible;
             return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    /// <summary>
-    /// bool値の有無をVisibilityに変換する(trur:Collapsed, false:Visible)
-    /// </summary>
-    [ValueConversion(typeof(bool), typeof(Visibility))]
-    public class InboolToVisibleConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            bool data = (bool)value;
-            if (data == true)
-            {
-                return Visibility.Collapsed;
-
-            }
-            return Visibility.Visible;
-
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    /// <summary>
-    /// DateTimeを変換する
-    /// </summary>
-    [ValueConversion(typeof(DateTime), typeof(String))]
-    public class DateConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            DateTime date = (DateTime)value;
-            return date.ToShortDateString() + " " + date.ToLongTimeString();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string strValue = value as string;
-            DateTime resultDateTime;
-            if (DateTime.TryParse(strValue, out resultDateTime))
-            {
-                return resultDateTime;
-            }
-            return null;
-        }
-    }
-
-    [ValueConversion(typeof(bool), typeof(SolidColorBrush))]
-    public class SentFlagColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            bool bIsVisible = (bool)value;
-            if (bIsVisible == true)
-                return new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
-            else
-                return new SolidColorBrush(Color.FromArgb(0x88, 0xff, 0xff, 0xff));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
-    [ValueConversion(typeof(int), typeof(Visibility))]
-    public class EditPanelVisibleConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            int fromID = (int)value;
-            if (fromID != 0)
-                return Visibility.Collapsed;
-            else
-                return Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

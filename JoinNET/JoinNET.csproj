@@ -89,7 +89,6 @@
     <Compile Include="bot\Transitions\TranslateTransition.cs" />
     <Compile Include="bot\WrapperElement.cs" />
     <Compile Include="CBasePage.cs" />
-    <Compile Include="CBmpUtil.cs" />
     <Compile Include="CJoinnetWebClient.cs" />
     <Compile Include="ClientCommunicationData.cs" />
     <Compile Include="DataAccount.cs" />
