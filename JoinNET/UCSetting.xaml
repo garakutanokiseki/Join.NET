@@ -1,0 +1,51 @@
+﻿<local:CBasePage x:Class="JoinNET.UCSetting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:JoinNET"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="640">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ExpressionDark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--  コンバーター  -->
+            <local:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+            <local:IntToStringConverter x:Key="IntToStringConverter" />
+            <local:CultureStringToIndex x:Key="CultureStringToIndex" />
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <RadioButton Name="radioWebServer" Content="{Binding Resources.label_cfg_use_web_server, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2,2" GroupName="TunelMode" IsChecked="{Binding Path=TunnelMode, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=WebServer}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,24">
+            <TextBlock Width="120" Foreground="{StaticResource TextBrush}" Text="{Binding Resources.label_cfg_public_folder, Mode=OneWay, Source={x:Static local:ResourceService.Current}}"/>
+            <TextBox Name="documen_root" Width="180" Text="{Binding Path=document_root, Mode=TwoWay}" />
+            <Button Name="btnBrowse" Width="60" Content="{Binding Resources.label_cfg_browse, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" Margin="8,0,0,0" Click="btnBrowse_Click"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,48">
+            <TextBlock Width="120" Foreground="{StaticResource TextBrush}" Text="{Binding Resources.label_cfg_auto_html, Mode=OneWay, Source={x:Static local:ResourceService.Current}}"/>
+            <CheckBox Name="is_auto_html" Content="{Binding Resources.label_cfg_enable, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" IsChecked="{Binding Path=is_auto_html, Mode=TwoWay}" />
+        </StackPanel>
+        <RadioButton Name="radioOther" Content="{Binding Resources.label_cfg_user_any_port, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2,72" GroupName="TunelMode" IsChecked="{Binding Path=TunnelMode, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=OptionalFunction}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,96">
+            <TextBlock Width="120" Foreground="{StaticResource TextBrush}" Text="{Binding Resources.label_cfg_ipaddress, Mode=OneWay, Source={x:Static local:ResourceService.Current}}"/>
+            <TextBox Name="target_ip" Width="180" Text="{Binding Path=target_ip, Mode=TwoWay}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,120">
+            <TextBlock Width="120" Foreground="{StaticResource TextBrush}" Text="{Binding Resources.label_cfg_portnumber, Mode=OneWay, Source={x:Static local:ResourceService.Current}}"/>
+            <TextBox Name="target_port" Width="180" Text="{Binding Path=target_port, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}" local:TextBoxBehaviors.IsNumeric="True"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,152">
+            <Label Width="120" Foreground="{DynamicResource TextBrush}" Content="{Binding Resources.label_language, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" />
+            <ComboBox Name="cmbLanguege" SelectedIndex="{Binding Path=language, Mode=TwoWay, Converter={StaticResource CultureStringToIndex}}" Width="180" SelectionChanged="cmbLanguege_SelectionChanged" IsReadOnly="True" >
+                <ComboBoxItem Content="{Binding Resources.cmb_lang_en_us, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" />
+                <ComboBoxItem Content="{Binding Resources.cmb_lang_ja_jp, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" />
+            </ComboBox>
+        </StackPanel>
+    </Grid>
+</local:CBasePage>

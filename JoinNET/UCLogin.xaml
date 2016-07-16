@@ -1,0 +1,36 @@
+﻿<local:CBasePage x:Class="JoinNET.UCLogin"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:JoinNET"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="640">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ExpressionDark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/logo.png" Stretch="None" Margin="0,64,0,0"/>
+
+        <Grid Width="320" Height="166" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,191,0,0">
+            <Label Content="{Binding Resources.label_userid, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextBrush}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            <Label Content="{Binding Resources.label_password, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextBrush}" HorizontalAlignment="Left" Margin="0,32,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textUserID" HorizontalAlignment="Left" Height="23" Margin="87,0,0,0" VerticalAlignment="Top" Width="223"/>
+            <PasswordBox x:Name="textPassword" HorizontalAlignment="Left" Height="23" Margin="87,32,0,0" VerticalAlignment="Top" Width="223"/>
+            <Button x:Name="btnLogin" Content="{Binding Resources.label_login, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" HorizontalAlignment="Left" Margin="236,69,0,0" VerticalAlignment="Top" Width="74" Click="btnLogin_Click"/>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="202,94,0,0" Height="17">
+                <Hyperlink NavigateUri="https://livechatcof.herokuapp.com/" Hyperlink.RequestNavigate="hyperlink_RequestNavigate">
+                    <TextBlock Foreground="#FF7EB2B2" Text="{Binding Resources.label_signup, Mode=OneWay, Source={x:Static local:ResourceService.Current}}"/>
+                </Hyperlink>
+            </Label>
+            <TextBlock x:Name="textStatus" FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextBrush}" HorizontalAlignment="Left" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+        </Grid>
+
+
+    </Grid>
+</local:CBasePage>

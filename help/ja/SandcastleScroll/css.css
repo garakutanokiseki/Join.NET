@@ -1,0 +1,132 @@
+/* è„ïîÇÃìÆÇ©Ç»Ç¢Ç†ÇÍ */
+#NoScroll{
+	padding: 6px 6px 7px 6px;
+	background: #d4dfff;
+	vertical-align: top;
+	z-index: 2;
+	visibility: visible;
+	left: 0;
+	top: 0;
+	width: 98%;
+	border-bottom: 1px solid #c8cdde;
+}
+
+#title{
+	clear: both;
+	font-size: 150%;
+	color: #0033bd;
+	font-weight: bold;
+}
+
+#navi{
+	font-size: 90%;
+	padding-top: 5px; 
+	font-weight: bold;
+}
+
+img.backnaviimg{
+	border: none;
+}
+
+img.nextnaviimg{
+	border: none;
+}
+
+/* É{ÉfÉB */
+#Scroll{
+	left: 0; 
+	top: 0px; 
+	margin: 0; 
+	padding: 10px; 
+	z-index: 1; 
+}
+
+/* Body */
+body {
+	padding: 0px;
+	margin: 0;
+	font-size: 85%;
+}
+
+a {
+	color: Blue;
+	text-decoration: none;
+}
+
+#ptitle {
+	float: left;
+	font-size: 95%;
+}
+
+#nav {
+	text-align: right;
+}
+
+/*Text*/
+p {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+h1 {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+h2 {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+h3 {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+h4 {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+h5 {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+h6 {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+dl {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+table {
+	border: 0 solid Black;
+	margin-right: 15px;
+	margin-left: 15px;	
+}
+
+hr {
+	color: #003399;
+}
+
+tr {
+	background: #f7f7ff;
+	border: 0 solid Black;
+}
+
+td {
+	border: 0 solid Black;
+	background: #f7f7ff;
+	border-bottom: 1px solid #c8cdde;
+}
+
+th {
+	border: 0 solid Black;
+	border-bottom: 1px solid #c8cdde;
+	background: #efeff7;
+	color: #000066;
+}

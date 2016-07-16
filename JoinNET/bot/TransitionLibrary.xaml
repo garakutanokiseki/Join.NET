@@ -1,0 +1,22 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:lib="clr-namespace:PixelLab.Wpf.Transitions">
+
+    <lib:Transition x:Key="Transition_Base" TextSearch.Text="Base"/>
+    <lib:FadeTransition x:Key="Transition_Fade" Duration="0:0:0.5"
+                    TextSearch.Text="Fade"/>
+    <lib:StoryboardTransition x:Key="Transition_FadeWipe2" TextSearch.Text="Fade Wipe 2">
+        <lib:StoryboardTransition.NewContentStoryboard>
+            <Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.7"/>
+            </Storyboard>
+        </lib:StoryboardTransition.NewContentStoryboard>
+    </lib:StoryboardTransition>
+
+    <lib:TranslateTransition x:Key="Transition_Translate_Right" TextSearch.Text="2D Translate Transition" Duration="0:0:0.5" StartPoint="-1,0"/>
+    <lib:TranslateTransition x:Key="Transition_Translate_Left" TextSearch.Text="2D Translate Transition" Duration="0:0:0.5" StartPoint="1,0"/>
+    <lib:SlideTransition x:Key="Transition_SlideRight" TextSearch.Text="Slide Right Transition" Duration="0:0:0.5" StartPoint="-1,0"/>
+    <lib:SlideTransition x:Key="Transition_SlideLeft" TextSearch.Text="Slide Left Transition" Duration="0:0:0.5" StartPoint="1,0"/>
+
+</ResourceDictionary>

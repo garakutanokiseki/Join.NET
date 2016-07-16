@@ -1,0 +1,3 @@
+#define IDH_HELP2 10002
+#define IDH_HELP3 10003
+#define IDH_HELP5 10005

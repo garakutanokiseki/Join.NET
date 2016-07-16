@@ -1,0 +1,46 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=JoinNET.chm
+Contents file=JoinNET.hhc
+Default Font=MS UI Gothic,10,128
+Default Window=defwnd
+Default topic=20141115103845443.htm
+Display compile progress=Yes
+Error log file=MangaViewer.log
+Full-text search=Yes
+Index file=JoinNET.hhk
+Language=0x411 “ú–{Œê (“ú–{)
+Title=Join.NET‚Ìƒwƒ‹ƒv
+
+[WINDOWS]
+defwnd="Join.NET‚Ìƒwƒ‹ƒv","JoinNET.hhc","JoinNET.hhk","20141115103845443.htm",,,,,,0x21720,200,0x10180e,[380,211,944,656],,0x0,,,,,0
+
+
+[FILES]
+2014111510415259.htm
+20141115103845443.htm
+20141115104041266.htm
+license.htm
+SandcastleScroll\back.gif
+SandcastleScroll\css.css
+SandcastleScroll\footer.htm
+SandcastleScroll\header.htm
+SandcastleScroll\next.gif
+001_login.png
+004_setting.png
+003_filelist.png
+002_contactlist.png
+
+[ALIAS]
+IDH_HELP2=2014111510415259.htm
+IDH_HELP3=20141115103845443.htm
+IDH_HELP5=20141115104041266.htm
+
+[MAP]
+#define IDH_HELP2 10002
+#define IDH_HELP3 10003
+#define IDH_HELP5 10005
+
+[INFOTYPES]
+

@@ -1,0 +1,24 @@
+﻿<!doctype html>
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<title>Join.Net File Explore</title>
+</head>
+
+<body>
+<h1>Index of $directory</h1>
+<table style="border: 0px">
+	<tbody>
+				#foreach($file in $files)
+		<tr>
+				<td>
+				<a href="${file.path}">${file.name}</a>
+				</td>
+                <td>${file.time}</td>
+				<td>${file.size}</td>
+		</tr>
+				#end
+	</tbody>
+</table>
+
+</body></html>

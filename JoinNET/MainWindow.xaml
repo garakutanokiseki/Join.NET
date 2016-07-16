@@ -1,0 +1,325 @@
+﻿<Window x:Class="JoinNET.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:JoinNET"
+        xmlns:lib="clr-namespace:PixelLab.Wpf.Transitions"
+        xmlns:properties="clr-namespace:JoinNET.Properties"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="JoinNET" Height="480" Width="640" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ExpressionDark.xaml"/>
+                <ResourceDictionary Source="bot/TransitionLibrary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- 定数 -->
+            <System:Double x:Key="panel_menu_width">200</System:Double>
+            <System:Double x:Key="panel_menu_width_trans">-220</System:Double>
+
+            <!--  コンバーター  -->
+            <local:BoolToVisibleConverter x:Key="BoolToVisibleConverter" />
+
+            <!-- コントロールスタイル -->
+            <!-- *********************************  ButtonStyle  ********************************* -->
+            <Style x:Key="NoneBoraderButtonStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+                <Setter Property="FontSize" Value="14.667" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="Padding" Value="10,0,10,2" />
+                <Setter Property="MinHeight" Value="30" />
+                <Setter Property="MinWidth" Value="30" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Bd" Storyboard.TargetProperty="Fill">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HoverShineBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Bd" Storyboard.TargetProperty="Fill">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PressedBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentControl">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PressedBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DisabledVisualElement">
+                                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Visible</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="Bd" Fill="#00FFFFFF" StrokeThickness="0" />
+                                <ContentControl x:Name="ContentControl" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    <ContentPresenter x:Name="contentPresenter" />
+                                </ContentControl>
+                                <Rectangle x:Name="DisabledVisualElement" Fill="{StaticResource DisabledBackgroundBrush}" Visibility="Collapsed" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="listitemMenu" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <ControlTemplate.Resources>
+                                <Storyboard x:Key="HoverOn">
+
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="HoverRectangle" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+
+                                </Storyboard>
+                                <Storyboard x:Key="HoverOff">
+
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="HoverRectangle" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+
+                                </Storyboard>
+                                <Storyboard x:Key="SelectedOn">
+
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="SelectedRectangle" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+
+                                </Storyboard>
+                                <Storyboard x:Key="SelectedOff">
+
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="SelectedRectangle" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+
+                                </Storyboard>
+                                <Storyboard x:Key="FocussedOn">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Key="FocussedOff">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </ControlTemplate.Resources>
+                            <Grid SnapsToDevicePixels="true" Margin="1,1,1,1">
+                                <Rectangle x:Name="Background" IsHitTestVisible="False" Opacity="0.25" Fill="{StaticResource ControlBackgroundBrush}"/>
+                                <Rectangle x:Name="HoverRectangle" IsHitTestVisible="False" Opacity="0" Fill="{StaticResource NormalBrush}"/>
+                                <Rectangle x:Name="SelectedRectangle" IsHitTestVisible="False" Opacity="0" Fill="{StaticResource NormalBrush}"/>
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="2,0,2,0" x:Name="contentPresenter" />
+                                <Rectangle x:Name="FocusVisualElement" Stroke="{StaticResource HoverShineBrush}" Opacity="0"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource FocussedOff}" x:Name="FocussedOff_BeginStoryboard"/>
+                                    </Trigger.ExitActions>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource FocussedOn}" x:Name="FocussedOn_BeginStoryboard"/>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard x:Name="SelectedOff_BeginStoryboard" Storyboard="{StaticResource SelectedOff}"/>
+                                    </Trigger.ExitActions>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard x:Name="SelectedOn_BeginStoryboard" Storyboard="{StaticResource SelectedOn}"/>
+                                    </Trigger.EnterActions>
+
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                        <Condition Property="Selector.IsSelected" Value="False" />
+                                    </MultiTrigger.Conditions>
+
+                                    <MultiTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource HoverOn}"/>
+                                    </MultiTrigger.EnterActions>
+                                    <MultiTrigger.ExitActions>
+                                        <BeginStoryboard x:Name="HoverOff_BeginStoryboard" Storyboard="{StaticResource HoverOff}"/>
+                                    </MultiTrigger.ExitActions>
+
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelected" Value="True" />
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                    </MultiTrigger.Conditions>
+
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Style.Triggers>
+                    <Trigger Property="Selector.IsSelected" Value="True">
+                        <Setter Property="Foreground">
+                            <Setter.Value>
+                                <SolidColorBrush Color="{DynamicResource BlackColor}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- メニューオープン -->
+            <Storyboard x:Key="Storyboard_MenuOpen">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)" Storyboard.TargetName="content_menu">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="-175"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-80"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <!-- メニュークローズ -->
+            <Storyboard x:Key="Storyboard_MenuClose">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)" Storyboard.TargetName="content_menu">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-180"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="{StaticResource panel_menu_width_trans}"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btnMenu">
+            <BeginStoryboard Storyboard="{StaticResource Storyboard_MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btnMenu">
+            <BeginStoryboard Storyboard="{StaticResource Storyboard_MenuClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <DockPanel Background="{StaticResource ControlBackgroundBrush}">
+        <DockPanel Name="pane_toolbar" DockPanel.Dock="Top" Background="{StaticResource ControlBackgroundBrush}" LastChildFill="False">
+            <ToggleButton Name="btnMenu" 
+                              DockPanel.Dock="Left" Margin="2" Width="26" RenderTransformOrigin="0.5,0.5">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Name="borderMenu" Background="Transparent" RenderTransformOrigin="0.5,0.5" >
+                            <Image Name="imgMenu" Source="images/menu-48.png" Width="24" Height="24" RenderTransformOrigin="0.5,0.5" >
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="borderMenu" Property="Background" Value="{StaticResource HoverShineBrush}" />
+                            </Trigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)" Storyboard.TargetName="imgMenu">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="90"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)" Storyboard.TargetName="imgMenu">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="90"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
+            
+            <Button Name="btnBack" Style="{StaticResource NoneBoraderButtonStyle}" DockPanel.Dock="Left" Margin="2" Click="btnBack_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="24" Source="images/Left-Arrow-48.png"/>
+                </StackPanel>
+            </Button>
+
+            <Button Name="btnLogout" Style="{StaticResource NoneBoraderButtonStyle}" DockPanel.Dock="Right" Margin="2" Content="{Binding Resources.button_logout, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" Visibility="{Binding Path=is_login, Converter={StaticResource BoolToVisibleConverter}, Mode=OneWay}" Click="btnLogout_Click"/>
+
+            <Button Name="btnAdd" Style="{StaticResource NoneBoraderButtonStyle}" DockPanel.Dock="Left" Margin="2" Content="{Binding Resources.button_add_connection, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" Visibility="{Binding Path=is_login, Converter={StaticResource BoolToVisibleConverter}, Mode=OneWay}" Click="btnAdd_Click" />
+            
+        </DockPanel>
+        <StackPanel Name="pane_status" DockPanel.Dock="Bottom" Orientation="Horizontal" Visibility="{Binding Path=is_login, Converter={StaticResource BoolToVisibleConverter}, Mode=OneWay}">
+            <TextBlock Foreground="{StaticResource TextBrush}" Margin="2" Text="{Binding Resources.label_tuunel_port_number, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" />
+            <TextBlock Name="textTunnelPortNumber" Foreground="{StaticResource TextBrush}" Margin="2" />
+        </StackPanel>
+        <Grid>
+            <!-- メインコンテンツ -->
+            <lib:TransitionPresenter x:Name="PanelMain" Grid.Column="0" HorizontalAlignment="Stretch">
+                <lib:TransitionPresenter.Content>
+                    <Label />
+                </lib:TransitionPresenter.Content>
+            </lib:TransitionPresenter>
+
+            <!-- ページメニュー -->
+            <DockPanel
+                    Name="content_menu"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Stretch"
+                    MouseLeave="content_menu_MouseLeave"
+                    Width="{StaticResource panel_menu_width}"
+                    Background="{DynamicResource WindowBackgroundBrush}">
+                <DockPanel.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform X="{StaticResource panel_menu_width_trans}"/>
+                    </TransformGroup>
+                </DockPanel.RenderTransform>
+
+                <DockPanel.Effect>
+                    <DropShadowEffect Color="#FFC1C1C1" />
+                </DockPanel.Effect>
+
+                <!-- メニュー -->
+                <ListBox DockPanel.Dock="Bottom" Name="listMenu" ItemContainerStyle="{StaticResource listitemMenu}">
+                    <ListBoxItem Name="menuAbout" >
+                        <TextBlock Foreground="{DynamicResource TextBrush}" Text="{Binding Resources.label_about, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" MouseDown="menu_About_MouseDown" />
+                    </ListBoxItem>
+                </ListBox>
+
+                <ListBox ItemContainerStyle="{StaticResource listitemMenu}">
+                    <ListBoxItem Name="menu_setting" IsEnabled="{Binding Path=is_login, Mode=OneWay}" >
+                        <TextBlock Foreground="{DynamicResource TextBrush}" Text="{Binding Resources.label_config, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" MouseDown="menu_setting_MouseDown"/>
+                    </ListBoxItem>
+                    <ListBoxItem Name="menu_server_status" IsEnabled="{Binding Path=is_login, Mode=OneWay}" >
+                        <TextBlock Foreground="{DynamicResource TextBrush}" Text="{Binding Resources.label_connection_status, Mode=OneWay, Source={x:Static local:ResourceService.Current}}" MouseDown="menu_server_status_MouseDown"/>
+                    </ListBoxItem>
+                </ListBox>
+            </DockPanel>
+
+        </Grid>
+    </DockPanel>
+</Window>
